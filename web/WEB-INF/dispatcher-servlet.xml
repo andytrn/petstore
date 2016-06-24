@@ -15,5 +15,8 @@
 
 	<mvc:annotation-driven />
 	<context:component-scan base-package="petstore" />
-
+	
+	<!-- import spring's config -->
+	<import resource="classpath:spring-beans.xml" />
+	
 </beans>

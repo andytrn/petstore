@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import petstore.model.Pet;
+import petstore.domain.Pet;
 import petstore.util.JsonUtil;
 
 /**
@@ -35,7 +35,11 @@ public class PetStoreController {
 		
 		try {
 			
-			Pet pet = new Pet(name, photo, status);
+			Pet pet = new Pet();
+			
+			pet.setName(name);
+			pet.setPhoto(photo);
+			pet.setStatus(status);
 			
 			response = new PetStoreResponse("success", null, JsonUtil.toJson(pet));
 			

@@ -1,5 +1,8 @@
 package petstore;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import petstore.domain.Pet;
+import petstore.service.PetService;
 import petstore.util.JsonUtil;
 
 /**
@@ -20,8 +24,11 @@ import petstore.util.JsonUtil;
 @RestController
 public class PetStoreController {
 	
+	@Autowired
+	private PetService service;
+	
 	/**
-	 * Add a pet to the store.
+	 * Adds a pet to the store.
 	 * 
 	 * @param name The name of the pet.
 	 * @param photo The URL to the photo of the pet.
@@ -41,6 +48,8 @@ public class PetStoreController {
 			pet.setPhoto(photo);
 			pet.setStatus(status);
 			
+			service.insert(pet);
+			
 			response = new PetStoreResponse("success", null, JsonUtil.toJson(pet));
 			
 		} catch (JsonProcessingException e) {
@@ -53,12 +62,20 @@ public class PetStoreController {
 		
 	} //addPet
 	
+	/**
+	 * Removes a pet from the store.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
-	public PetStoreResponse deletePet(@PathVariable Long id) {
+	public PetStoreResponse deletePet(@PathVariable Integer id) {
 		
 		PetStoreResponse response = null;
 		
 		try {
+			
+			service.deleteById(id);
 			
 			response = new PetStoreResponse("success", null, null);
 			
@@ -72,14 +89,48 @@ public class PetStoreController {
 		
 	} //deletePet
 	
-	@RequestMapping(value="/get/{id}", method = RequestMethod.GET)
-	public PetStoreResponse getPet(@PathVariable Long id) {
+	/**
+	 * Returns all pets in the store.
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="/get", method = RequestMethod.GET)
+	public PetStoreResponse getAll() {
 		
 		PetStoreResponse response = null;
 		
 		try {
 			
-			response = new PetStoreResponse("success", null, null);
+			List<Pet> pets = service.getAll();
+			
+			response = new PetStoreResponse("success", null, JsonUtil.toJson(pets));
+			
+		} catch (Exception e) { //TODO
+			
+			response = new PetStoreResponse("failure", e.getMessage(), null);
+			
+		} //try
+		
+		return response;
+		
+	} //getPet
+	
+	/**
+	 * Returns a pet from the store.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/get/{id}", method = RequestMethod.GET)
+	public PetStoreResponse getPet(@PathVariable Integer id) {
+		
+		PetStoreResponse response = null;
+		
+		try {
+			
+			Pet pet = service.getById(id);
+			
+			response = new PetStoreResponse("success", null, JsonUtil.toJson(pet));
 			
 		} catch (Exception e) { //TODO
 			

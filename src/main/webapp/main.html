@@ -1,0 +1,221 @@
+<html>
+<head>
+	<title>Credit Card Number Generator</title>
+	<link rel="stylesheet" type="text/css" href="css/petstore.css">
+	
+	<script src="js/angular.min.js"></script>
+	
+	<script type="text/javascript">
+		var app = angular.module("petApp", []);
+		
+		app.controller("PetCtrl", function($scope, $http) {
+			$scope.get = function() {
+				$http({
+					method : 'GET',
+					url : 'get' + $scope.form.type
+				}).then( _success, _error );
+			}
+			
+			function _success(response) {
+				console.log("status: " + response.data.status + ", value: " + response.data.value);
+			}
+			
+			function _error(response) {
+				console.log("status: " + response.data.status + ", message: " + response.data.message);
+			}
+		});
+	</script>
+	
+</head>
+
+<body ng-app="petApp" ng-controller="PetCtrl">
+
+<div class="main">
+	
+	<span class="header">ACME Pet Store Inventory</span>
+	
+	<div class="left">
+		<div class="entry">
+			
+			<form name="petForm" ng-submit="add()">
+				<div class="field">
+					<span class="label">Name</span>
+					<input type="text" ng-model='form.name' class="text">
+				</div>
+				
+				<div class="field">
+					<span class="label">Photo</span>
+					<input type="text" ng-model='form.photo' class="text">
+				</div>
+				
+				<div class="field">
+					<span class="label">Status</span>
+					<select ng-model="form.status" ng-init="form.status='available'" class="select">
+						<option value="available">Available</option>
+						<option value="pending">Pending</option>
+						<option value="sold">Sold</option>
+					</select>
+				</div>
+				
+				<div class="field">
+					<input type="submit" value="Add" class="badd">
+				</div>
+			</form>
+			
+		</div>
+		
+		<p>
+		
+		<div class="search">
+			<form name="petForm" ng-submit="find()">
+				<div class="field">
+					<span class="label">ID</span>
+					<input type="text" ng-model='form.id' class="text">
+				</div>
+				
+				<div class="field">
+					<input type="submit" value="Search" class="bsearch">
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="right">
+		<div class="report">
+			<div class="rheader">
+				<table>
+					<tr>
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Status</td>
+						<td class="rdelete"></td>
+						<td class="rscroll"></td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="rbody">
+				<table>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Pending</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Pending</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Sold</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Pending</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="odd">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+					<tr class="even">
+						<td class="rid">ID</td>
+						<td class="rname">Name</td>
+						<td class="rphoto">Photo</td>
+						<td class="rstatus">Available</td>
+						<td class="rdelete"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+    
+</body>
+
+</html>

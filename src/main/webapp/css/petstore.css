@@ -1,0 +1,135 @@
+.main {
+	width: 970px;
+	margin: 20px auto 20px auto;
+}
+
+.header {
+	display: block;
+	width: 240px;
+	font-size: 16pt;
+	margin: 20px 0px 10px 350px;
+}
+
+.left {
+	float: left;
+	padding-bottom: 20px;
+}
+
+.right {
+	float: right;
+}
+
+.entry {
+	width: 290px;
+	height: 140px;
+	padding: 20px;
+	background-color: azure;
+	font-size: 11pt;
+	border: solid green 1px;
+	border-radius: 10px;
+}
+
+.search {
+	width: 290px;
+	height: 60px;
+	float: left;
+	padding: 20px;
+	background-color: azure;
+	font-size: 11pt;
+	border: solid green 1px;
+	border-radius: 10px;
+}
+
+.report {
+	width: 580px;
+	height: 365px;
+	padding: 20px;
+	background-color: azure;
+	font-size: 11pt;
+	border: solid green 1px;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+.title {
+	margin: 0px auto 20px auto;
+	font-size: 14pt;
+	text-align: center;
+}
+
+.field {
+	height: 40px;
+}
+
+.label {
+	width: 100px;
+	display: inline-block;
+}
+
+.select {
+	width: 185px;
+	font-size: 12pt;
+}
+
+.text {
+	width: 185px;
+	font-size: 11pt;
+}
+
+.rheader {
+	width: 580px;
+	background-color: #D8D8D8
+}
+
+.rbody {
+	width: 580px;
+	height: 333px;
+	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.rid {
+	width: 40px;
+}
+
+.rname {
+	width: 140px;
+	height: 28px;
+}
+
+.rphoto {
+	width: 330px;
+}
+
+.rstatus {
+	width: 80px;
+}
+
+.rscroll {
+	width: 10px;
+}
+
+.rdelete {
+	width: 30px;
+}
+
+.odd {
+	background-color: #F8F8F8;
+}
+
+.even {
+	background-color: #F0F0F0;
+}
+
+.badd {
+	width: 100px;
+	font-size: 12pt;
+	float: right;
+}
+
+.bsearch {
+	width: 100px;
+	font-size: 12pt;
+	float: right;
+}

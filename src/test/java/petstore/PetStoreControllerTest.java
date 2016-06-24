@@ -48,7 +48,7 @@ public class PetStoreControllerTest {
 	@Test
 	public void addWitPparamShouldReturnSuccess() throws Exception {
 		
-		this.mockMvc.perform(post("/add").param("name", "Max").param("photo", "http://swagger.io/photos/max.jpg").param("status", "available"))
+		this.mockMvc.perform(post("/add").param("name", "Max").param("photo", "http://petstore.com/photos/max.jpg").param("status", "available"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("success"))

@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import petstore.Application;
 import petstore.domain.Pet;
+import petstore.util.JsonUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class, locations="classpath:spring-beans.xml")
@@ -23,48 +24,39 @@ public class PetServiceTest {
 	@Test
 	public void testAll() throws Exception {
 		
-		Pet pet1 = new Pet();
-		
-		pet1.setName("Max");
-		pet1.setPhoto("http://petstore.com/photo/" + pet1.getName().toLowerCase() + ".jpg");
-		pet1.setStatus("available");
-		
-		//Insert
-		service.insert(pet1);
-		
-		//Select
-		Pet newpet = service.getByName(pet1.getName());
-		Assert.assertNotNull(newpet);
-		Assert.assertEquals(pet1.getName(), newpet.getName());
-		
-		Pet pet2 = new Pet();
-		
-		pet2.setName("Charlie");
-		pet2.setPhoto("http://petstore.com/photo/" + pet2.getName().toLowerCase() + ".jpg");
-		pet2.setStatus("available");
-		
-		//Insert
-		service.insert(pet2);
-		
-		//Select
-		newpet = service.getByName(pet2.getName());
-		Assert.assertNotNull(newpet);
-		Assert.assertEquals(pet2.getName(), newpet.getName());
-		
 		//Select all
 		List<Pet> all = service.getAll();
-		Assert.assertEquals(2, all.size());
+		Assert.assertEquals(3, all.size());
+		
+		Pet pet = new Pet();
+		
+		pet.setName("Mimi");
+		pet.setPhoto("http://petstore.com/photo/" + pet.getName().toLowerCase() + ".jpg");
+		pet.setStatus("available");
+		
+		//Insert
+		service.insert(pet);
+		
+		//Select
+		Pet newpet = service.getByName(pet.getName());
+		Assert.assertNotNull(newpet);
+		Assert.assertEquals(pet.getName(), newpet.getName());
+		
+		//Select all
+		all = service.getAll();
+		Assert.assertEquals(4, all.size());
+		System.out.println(JsonUtil.toJson(all));
 		
 		//Delete
-		service.deleteByName(pet1.getName());
+		service.deleteByName(pet.getName());
 		
 		//Check
-		newpet = service.getByName(pet1.getName());
+		newpet = service.getByName(pet.getName());
 		Assert.assertNull(newpet);
 		
 		//Select all
 		all = service.getAll();
-		Assert.assertEquals(1, all.size());
+		Assert.assertEquals(3, all.size());
 		
 	}
 	

@@ -22,6 +22,7 @@
  
 	<jdbc:embedded-database id="dataSource">
 		<jdbc:script location="classpath:database/petstore-hsqldb-schema.sql"/>
+		<jdbc:script location="classpath:database/petstore-hsqldb-dataload.sql"/>
 	</jdbc:embedded-database>
 	
     <!-- transaction manager, use DataSourceTransactionManager" for JDBC local tx -->

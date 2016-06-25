@@ -67,9 +67,20 @@ public class PetStoreControllerTest {
 	}
 	
 	@Test
-	public void getWitPparamShouldReturnSuccess() throws Exception {
+	public void getWitPparamShouldReturnError() throws Exception {
 		
 		this.mockMvc.perform(get("/get/0"))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.status").value("failure"))
+				.andExpect(jsonPath("$.value").doesNotExist());
+		
+	}
+	
+	@Test
+	public void getWitPparamShouldReturnSuccess() throws Exception {
+		
+		this.mockMvc.perform(get("/get/1"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("success"))

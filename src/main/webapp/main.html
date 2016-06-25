@@ -12,7 +12,14 @@
 		app.controller("PetCtrl", function($scope, $http) {
 			$scope.statuses = ['Available', 'Pending', 'Sold'];
 			
+			$scope.clear = function() {
+				$('.search .error').hide();
+				$("[class*='rselect']").removeClass('rselect');
+			}
+			
 			$scope.get = function() {
+				$scope.clear();
+				
 				$http({
 					method: 'GET',
 					url: 'get'
@@ -22,6 +29,8 @@
 			}
 			
 			$scope.add = function() {
+				$scope.clear();
+				
 				$http({
 					method: 'POST',
 					url: 'add',
@@ -41,6 +50,8 @@
 			}
 			
 			$scope.delete = function(id) {
+				$scope.clear();
+				
 				$http({
 					method: 'DELETE',
 					url: 'delete/' + id
@@ -50,9 +61,8 @@
 			}
 			
 			$scope.find = function() {
-				$('.search .error').hide();
-				$("[class*='rselect']").removeClass('rselect');
-				
+				$scope.clear();
+								
 				$http({
 					method: 'GET',
 					url: 'get/' + $scope.pet.id

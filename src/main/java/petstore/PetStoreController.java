@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import petstore.domain.Pet;
 import petstore.service.PetService;
-import petstore.util.JsonUtil;
 
 /**
  * A controller for the Pet Store operations.
@@ -50,9 +47,9 @@ public class PetStoreController {
 			
 			service.insert(pet);
 			
-			response = new PetStoreResponse("success", null, JsonUtil.toJson(pet));
+			response = new PetStoreResponse("success", null, pet);
 			
-		} catch (JsonProcessingException e) {
+		} catch (Exception e) { //TODO
 			
 			response = new PetStoreResponse("failure", e.getMessage(), null);
 			
@@ -103,7 +100,7 @@ public class PetStoreController {
 			
 			List<Pet> pets = service.getAll();
 			
-			response = new PetStoreResponse("success", null, JsonUtil.toJson(pets));
+			response = new PetStoreResponse("success", null, pets);
 			
 		} catch (Exception e) { //TODO
 			
@@ -136,7 +133,7 @@ public class PetStoreController {
 				
 			} //if
 			
-			response = new PetStoreResponse("success", null, JsonUtil.toJson(pet));
+			response = new PetStoreResponse("success", null, pet);
 			
 		} catch (Exception e) { //TODO
 			

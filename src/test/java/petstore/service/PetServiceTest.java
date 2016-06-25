@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import net.minidev.json.JSONValue;
 import petstore.Application;
 import petstore.domain.Pet;
-import petstore.util.JsonUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class, locations="classpath:spring-beans.xml")
@@ -45,7 +45,7 @@ public class PetServiceTest {
 		//Select all
 		all = service.getAll();
 		Assert.assertEquals(4, all.size());
-		System.out.println(JsonUtil.toJson(all));
+		System.out.println(JSONValue.toJSONString(all));
 		
 		//Delete
 		service.deleteByName(pet.getName());

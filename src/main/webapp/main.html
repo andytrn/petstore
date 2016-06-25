@@ -37,7 +37,7 @@
 					
 				}).success(function(data) {
 					
-					$scope.pets = JSON.parse(data.value);
+					$scope.pets = data.value;
 					
 				});
 				
@@ -60,6 +60,13 @@
 					
 				}).success(function(data) {
 					
+					//error
+					if (data.status == 'failure') {
+						$('.entry .error').text(data.message);
+						$('.entry .error').show();
+						return;
+					}
+					
 					//reload
 					$scope.get();
 					
@@ -70,14 +77,6 @@
 					
 					//scroll
 					$('.rbody').scrollTop($('.rbody tr:last').position().top, 1);
-					
-				}).error(function(error, status) {
-					
-					//hack!!!
-					if (status == 403) {
-						$('.entry .error').text('Access is denied');
-						$('.entry .error').show();
-					}
 					
 				});
 			}

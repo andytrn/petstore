@@ -10,14 +10,14 @@ public class PetStoreResponse {
 	
 	private String status;
 	private String message;
-	private String value;
+	private Object value;
 	
 	/**
 	 * Constructor.
 	 * 
 	 * @param message
 	 */
-	public PetStoreResponse(String status, String message, String value) {
+	public PetStoreResponse(String status, String message, Object value) {
 		
 		this.status = status;
 		this.message = message;
@@ -52,7 +52,7 @@ public class PetStoreResponse {
 	 * 
 	 * @return
 	 */
-	public String getValue() {
+	public Object getValue() {
 		
 		return value;
 		

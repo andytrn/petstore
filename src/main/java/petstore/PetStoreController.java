@@ -132,7 +132,7 @@ public class PetStoreController {
 			
 			if (pet == null) {
 				
-				throw new Exception("Not found!");
+				throw new Exception("Not found");
 				
 			} //if
 			

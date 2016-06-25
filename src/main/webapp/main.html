@@ -9,73 +9,151 @@
 	<script type="text/javascript">
 		var app = angular.module("petApp", []);
 		
-		app.controller("PetCtrl", function($scope, $http) {
+		app.controller("PetCtrl", function($scope, $http, $location) {
 			$scope.statuses = ['Available', 'Pending', 'Sold'];
 			
+			/**
+			 * clear
+			 */
 			$scope.clear = function() {
-				$('.search .error').hide();
+				
+				$('.error').hide();
+				$('.rheader .rdelete').hide();
 				$("[class*='rselect']").removeClass('rselect');
+				
 			}
 			
+			/**
+			 * get
+			 */
 			$scope.get = function() {
+				
 				$scope.clear();
 				
 				$http({
+					
 					method: 'GET',
 					url: 'get'
+					
 				}).success(function(data) {
+					
 					$scope.pets = JSON.parse(data.value);
+					
 				});
+				
 			}
 			
+			/**
+			 * add
+			 */
 			$scope.add = function() {
+				
 				$scope.clear();
 				
+				//post
 				$http({
+					
 					method: 'POST',
 					url: 'add',
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					data: 'name=' + $scope.pet.name + '&photo=' + $scope.pet.photo + '&status=' + $scope.pet.status
+					
 				}).success(function(data) {
+					
+					//reload
 					$scope.get();
 					
-					//clear entries
+					//reset
 					$scope.pet.name = '';
 					$scope.pet.photo = '';
 					$scope.pet.status = $scope.statuses[0];
 					
 					//scroll
 					$('.rbody').scrollTop($('.rbody tr:last').position().top, 1);
+					
+				}).error(function(error, status) {
+					
+					//hack!!!
+					if (status == 403) {
+						$('.entry .error').text('Access is denied');
+						$('.entry .error').show();
+					}
+					
 				});
 			}
 			
+			/**
+			 * delete
+			 */
 			$scope.delete = function(id) {
+				
 				$scope.clear();
 				
+				//delete
 				$http({
+					
 					method: 'DELETE',
 					url: 'delete/' + id
+					
 				}).success(function(data) {
+					
+					//error
+					if (data.status == 'failure') {
+						$('.rheader .rdelete').show();
+						return;
+					}
+					
+					//reload
 					$scope.get();
+					
 				});
 			}
 			
+			/**
+			 * find
+			 */
 			$scope.find = function() {
+				
 				$scope.clear();
-								
+				
+				//get
 				$http({
+					
 					method: 'GET',
 					url: 'get/' + $scope.pet.id
+					
 				}).success(function(data) {
+					
+					//error
 					if (data.status == 'failure') {
 						$('.search .error').text(data.message);
 						$('.search .error').show();
 						return;
 					}
 					
+					//success
 					var row = $('.rbody #r' + $scope.pet.id);
 					row.addClass('rselect');
 					row.get(0).scrollIntoView();
+					
+				});
+			}
+			
+			/**
+			 * logout
+			 */
+			$scope.logout = function() {
+				
+				//post
+				$http({
+					
+					method: 'POST',
+					url: 'logout'
+					
+				}).success(function(data) {
+					
+					window.location = $location.path();
+					
 				});
 			}
 		});
@@ -87,7 +165,10 @@
 
 <div class="main">
 	
-	<span class="header">ACME Pet Store Inventory</span>
+	<div>
+		<span class="header">ACME Pet Store Inventory</span>
+		<span class="logout"><a href="" ng-click="logout()" target="_self">logout</a></span>
+	</div>
 	
 	<div class="left">
 		<div class="entry">
@@ -110,6 +191,7 @@
 				</div>
 				
 				<div class="field">
+					<span class="error"></span>
 					<input type="submit" value="Add" class="badd">
 				</div>
 			</form>
@@ -142,7 +224,7 @@
 						<td class="rname">Name</td>
 						<td class="rphoto">Photo</td>
 						<td class="rstatus">Status</td>
-						<td class="rdelete"></td>
+						<td class="rdelete" style="display: none;"><img src="images/stop.png" width="16" height="16" alt="Access is denied" /></td>
 						<td class="rscroll"></td>
 					</tr>
 				</table>
@@ -155,7 +237,7 @@
 						<td class="rname">{{pet.name}}</td>
 						<td class="rphoto">{{pet.photo}}</td>
 						<td class="rstatus">{{pet.status}}</td>
-						<td class="rdelete"><a href="" ng-click="delete(pet.id)"><img src="images/erase.png" width="12" height="12" alt="Remove" /></a></td>
+						<td class="rdelete"><a href="" ng-click="delete(pet.id)"><img src="images/erase.png" width="12" height="12" alt="Delete" /></a></td>
 					</tr>
 				</table>
 			</div>

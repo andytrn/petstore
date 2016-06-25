@@ -3,6 +3,7 @@ package petstore.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import petstore.domain.Pet;
@@ -25,6 +26,7 @@ public class PetService {
 	 * 
 	 * @param pet
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void insert(Pet pet) {
 		
 		petMapper.insert(pet);
@@ -71,6 +73,7 @@ public class PetService {
 	 * 
 	 * @param id
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteById(Integer id) {
 		
 		petMapper.deleteById(id);
@@ -82,6 +85,7 @@ public class PetService {
 	 * 
 	 * @param name
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteByName(String name) {
 		
 		petMapper.deleteByName(name);

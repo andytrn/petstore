@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Credit Card Number Generator</title>
+	<title>ACME Pet Store Inventory</title>
 	<link rel="stylesheet" type="text/css" href="css/petstore.css">
 	
 	<script src="js/angular.min.js"></script>
@@ -9,26 +9,47 @@
 		var app = angular.module("petApp", []);
 		
 		app.controller("PetCtrl", function($scope, $http) {
+			$scope.statuses = ['Available', 'Pending', 'Sold'];
+			
 			$scope.get = function() {
 				$http({
-					method : 'GET',
-					url : 'get' + $scope.form.type
-				}).then( _success, _error );
+					method: 'GET',
+					url: 'get'
+				}).success(function(data) {
+					$scope.pets = JSON.parse(data.value);
+				});
 			}
 			
-			function _success(response) {
-				console.log("status: " + response.data.status + ", value: " + response.data.value);
+			$scope.add = function() {
+				$http({
+					method: 'POST',
+					url: 'add',
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					data: 'name=' + $scope.pet.name + '&photo=' + $scope.pet.photo + '&status=' + $scope.pet.status
+				}).success(function(data) {
+					$scope.get();
+					
+					//clear entries
+					$scope.pet.name = '';
+					$scope.pet.photo = '';
+					$scope.pet.status = $scope.statuses[0];
+				});
 			}
 			
-			function _error(response) {
-				console.log("status: " + response.data.status + ", message: " + response.data.message);
+			$scope.delete = function(id) {
+				$http({
+					method: 'DELETE',
+					url: 'delete/' + id
+				}).success(function(data) {
+					$scope.get();
+				});
 			}
 		});
 	</script>
 	
 </head>
 
-<body ng-app="petApp" ng-controller="PetCtrl">
+<body ng-app="petApp" ng-controller="PetCtrl" data-ng-init="get()">
 
 <div class="main">
 	
@@ -37,23 +58,20 @@
 	<div class="left">
 		<div class="entry">
 			
-			<form name="petForm" ng-submit="add()">
+			<form name="entryForm" ng-submit="add()">
 				<div class="field">
 					<span class="label">Name</span>
-					<input type="text" ng-model='form.name' class="text">
+					<input type="text" ng-model='pet.name' class="text" required>
 				</div>
 				
 				<div class="field">
 					<span class="label">Photo</span>
-					<input type="text" ng-model='form.photo' class="text">
+					<input type="text" ng-model='pet.photo' class="text" required>
 				</div>
 				
 				<div class="field">
 					<span class="label">Status</span>
-					<select ng-model="form.status" ng-init="form.status='available'" class="select">
-						<option value="available">Available</option>
-						<option value="pending">Pending</option>
-						<option value="sold">Sold</option>
+					<select ng-model="pet.status" ng-options="values for values in statuses" ng-init="pet.status=statuses[0]" class="select">
 					</select>
 				</div>
 				
@@ -67,10 +85,10 @@
 		<p>
 		
 		<div class="search">
-			<form name="petForm" ng-submit="find()">
+			<form name="searchForm" ng-submit="find()">
 				<div class="field">
 					<span class="label">ID</span>
-					<input type="text" ng-model='form.id' class="text">
+					<input type="text" ng-model='searchForm.id' class="text">
 				</div>
 				
 				<div class="field">
@@ -97,117 +115,12 @@
 			
 			<div class="rbody">
 				<table>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Pending</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Pending</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Sold</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Pending</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="odd">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
-					</tr>
-					<tr class="even">
-						<td class="rid">ID</td>
-						<td class="rname">Name</td>
-						<td class="rphoto">Photo</td>
-						<td class="rstatus">Available</td>
-						<td class="rdelete"></td>
+					<tr ng-repeat="pet in pets track by $index" ng-class-odd="'odd'" ng-class-even="'even'">
+						<td class="rid">{{pet.id}}</td>
+						<td class="rname">{{pet.name}}</td>
+						<td class="rphoto">{{pet.photo}}</td>
+						<td class="rstatus">{{pet.status}}</td>
+						<td class="rdelete"><a href="" ng-click="delete(pet.id)"><img src="images/erase.png" width="14" height="14" alt="Remove" /></a></td>
 					</tr>
 				</table>
 			</div>

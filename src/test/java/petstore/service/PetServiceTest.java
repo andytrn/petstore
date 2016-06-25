@@ -8,7 +8,11 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import net.minidev.json.JSONValue;
 import petstore.Application;
@@ -16,6 +20,8 @@ import petstore.domain.Pet;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class, locations="classpath:spring-beans.xml")
+@TestExecutionListeners(listeners={DependencyInjectionTestExecutionListener.class, WithSecurityContextTestExecutionListener.class})
+@WithMockUser(username="admin",password="admin",roles={"USER","ADMIN"})
 public class PetServiceTest {
 	
 	@Autowired

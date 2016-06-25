@@ -130,6 +130,12 @@ public class PetStoreController {
 			
 			Pet pet = service.getById(id);
 			
+			if (pet == null) {
+				
+				throw new Exception("Not found!");
+				
+			} //if
+			
 			response = new PetStoreResponse("success", null, JsonUtil.toJson(pet));
 			
 		} catch (Exception e) { //TODO

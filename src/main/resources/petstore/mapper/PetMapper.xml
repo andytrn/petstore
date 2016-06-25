@@ -11,7 +11,7 @@
 		VALUES
 			(#{name}, #{photo}, #{status})
 		
-		<selectKey resultType="int" >
+		<selectKey resultType="int" keyProperty="id">
             CALL IDENTITY();
         </selectKey>
 	</insert>

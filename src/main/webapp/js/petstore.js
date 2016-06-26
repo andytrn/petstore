@@ -17,6 +17,16 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 	}
 	
 	/**
+	 * init
+	 */
+	$scope.init = function() {
+		
+		$scope.user();
+		$scope.get();
+		
+	}
+	
+	/**
 	 * get
 	 */
 	$scope.get = function() {
@@ -158,6 +168,24 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 		
 		window.location = $location.path();
 		
+	}
+	
+	/**
+	 * user
+	 */
+	$scope.user = function() {
+		
+		//get
+		$http({
+			
+			method: 'GET',
+			url: 'user'
+			
+		}).success(function(data) {
+			
+			$scope.user = data.value;
+			
+		});
 	}
 	
 });

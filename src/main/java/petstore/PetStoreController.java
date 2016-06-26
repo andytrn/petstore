@@ -3,6 +3,8 @@ package petstore;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -144,5 +146,19 @@ public class PetStoreController {
 		return response;
 		
 	} //getPet
+	
+	/**
+	 * Returns the current logged in user.
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="/user", method = RequestMethod.GET)
+	public PetStoreResponse getUser() {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		return new PetStoreResponse("success", null, auth.getName());
+		
+	}
 		
 }

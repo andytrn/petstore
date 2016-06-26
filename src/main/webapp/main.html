@@ -9,7 +9,7 @@
 	
 </head>
 
-<body ng-app="petApp" ng-controller="PetCtrl" data-ng-init="get()">
+<body ng-app="petApp" ng-controller="PetCtrl" data-ng-init="init()">
 
 <div class="main">
 	
@@ -17,7 +17,7 @@
 		<span class="header">Swagger Petstore</span>
 		<span class="logout">
 			<a href="" ng-click="refresh()" target="_self" title="log out"><img src="images/refresh.png" width="20" height="20" title="refresh" /></a>
-			<a href="" ng-click="logout()" target="_self" title="log out"><img src="images/exit.png" width="20" height="20" title="log out" /></a>
+			<a href="" ng-click="logout()" target="_self" title="log out"><img src="images/exit.png" width="20" height="20" title="log out {{user}}" /></a>
 		</span>
 	</div>
 	

@@ -46,7 +46,7 @@
 
 .report {
 	width: 580px;
-	height: 365px;
+	height: 258px;
 	padding: 20px;
 	background-color: azure;
 	font-size: 11pt;
@@ -88,7 +88,7 @@
 
 .rbody {
 	width: 580px;
-	height: 333px;
+	height: 226px;
 	padding: 1px;
 	overflow: hidden;
 	overflow-x: hidden;
@@ -97,11 +97,11 @@
 
 .rid {
 	width: 40px;
+	height: 30px;
 }
 
 .rname {
 	width: 120px;
-	height: 28px;
 }
 
 .rphoto {

@@ -25,15 +25,15 @@ public class PetStoreController {
 	private PetService service;
 	
 	/**
-	 * Adds a pet to the store.
+	 * Creates a pet record and store in the database.
 	 * 
 	 * @param name The name of the pet.
 	 * @param photo The URL to the photo of the pet.
 	 * @param status The availability status of the pet.
 	 * @return A response object.
 	 */
-	@RequestMapping(value="/add", method = RequestMethod.POST)
-	public PetStoreResponse addPet(@RequestParam String name, @RequestParam String photo, @RequestParam String status) {
+	@RequestMapping(value="/create", method = RequestMethod.POST)
+	public PetStoreResponse createPet(@RequestParam String name, @RequestParam String photo, @RequestParam String status) {
 		
 		PetStoreResponse response = null;
 		

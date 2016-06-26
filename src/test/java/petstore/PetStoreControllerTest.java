@@ -45,7 +45,7 @@ public class PetStoreControllerTest {
 	@Test
 	public void addNoParamShouldReturnError() throws Exception {
 		
-		this.mockMvc.perform(post("/add"))
+		this.mockMvc.perform(post("/create"))
 				.andDo(print())
 				.andExpect(status().isBadRequest());
 		
@@ -54,7 +54,7 @@ public class PetStoreControllerTest {
 	@Test
 	public void addWitPparamShouldReturnSuccess() throws Exception {
 		
-		this.mockMvc.perform(post("/add").param("name", "Max").param("photo", "http://petstore.com/photos/max.jpg").param("status", "available"))
+		this.mockMvc.perform(post("/create").param("name", "Max").param("photo", "http://petstore.com/photos/max.jpg").param("status", "available"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("success"))

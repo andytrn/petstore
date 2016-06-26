@@ -6,7 +6,7 @@
 .header {
 	display: inline-block;
 	font-size: 20pt;
-	margin: 20px 0px 10px 350px;
+	margin: 20px 0px 10px 0px;
 }
 
 .logout {

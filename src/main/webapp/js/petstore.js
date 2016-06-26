@@ -151,4 +151,13 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 		});
 	}
 	
+	/**
+	 * refresh
+	 */
+	$scope.refresh = function() {
+		
+		window.location = $location.path();
+		
+	}
+	
 });

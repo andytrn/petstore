@@ -6,6 +6,17 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 	$scope.columns = ['id', 'name', 'photo', 'status']
 	
 	/**
+	 * init
+	 */
+	$scope.init = function() {
+		
+		$scope.clear();
+		$scope.user();
+		$scope.get();
+		
+	}
+	
+	/**
 	 * clear
 	 */
 	$scope.clear = function() {
@@ -13,16 +24,6 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 		$('.error').hide();
 		$('.rheader .rdelete').hide();
 		$("[class*='rselect']").removeClass('rselect');
-		
-	}
-	
-	/**
-	 * init
-	 */
-	$scope.init = function() {
-		
-		$scope.user();
-		$scope.get();
 		
 	}
 	

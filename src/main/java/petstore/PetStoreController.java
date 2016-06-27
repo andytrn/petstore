@@ -34,8 +34,8 @@ public class PetStoreController {
 	 * @param status The availability status of the pet.
 	 * @return A response object.
 	 */
-	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public PetStoreResponse createPet(@RequestParam String name, @RequestParam String photo, @RequestParam String status) {
+	@RequestMapping(value="/pet", method = RequestMethod.POST)
+	public PetStoreResponse create(@RequestParam String name, @RequestParam String photo, @RequestParam String status) {
 		
 		PetStoreResponse response = null;
 		
@@ -67,8 +67,8 @@ public class PetStoreController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
-	public PetStoreResponse deletePet(@PathVariable Integer id) {
+	@RequestMapping(value="/pet/{id}", method = RequestMethod.DELETE)
+	public PetStoreResponse delete(@PathVariable Integer id) {
 		
 		PetStoreResponse response = null;
 		
@@ -93,8 +93,8 @@ public class PetStoreController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/get", method = RequestMethod.GET)
-	public PetStoreResponse getAll() {
+	@RequestMapping(value="/pet", method = RequestMethod.GET)
+	public PetStoreResponse get() {
 		
 		PetStoreResponse response = null;
 		
@@ -120,8 +120,8 @@ public class PetStoreController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/get/{id}", method = RequestMethod.GET)
-	public PetStoreResponse getPet(@PathVariable Integer id) {
+	@RequestMapping(value="/pet/{id}", method = RequestMethod.GET)
+	public PetStoreResponse get(@PathVariable Integer id) {
 		
 		PetStoreResponse response = null;
 		
@@ -153,7 +153,7 @@ public class PetStoreController {
 	 * @return
 	 */
 	@RequestMapping(value="/user", method = RequestMethod.GET)
-	public PetStoreResponse getUser() {
+	public PetStoreResponse user() {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		

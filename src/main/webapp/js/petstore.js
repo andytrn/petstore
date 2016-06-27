@@ -10,7 +10,6 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 	 */
 	$scope.init = function() {
 		
-		$scope.clear();
 		$scope.user();
 		$scope.get();
 		
@@ -28,25 +27,6 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 	}
 	
 	/**
-	 * get
-	 */
-	$scope.get = function() {
-		
-		$scope.clear();
-		
-		$http({
-			
-			method: 'GET',
-			url: 'get'
-			
-		}).success(function(data) {
-			
-			$scope.pets = data.value;
-			
-		});
-	}
-	
-	/**
 	 * create
 	 */
 	$scope.create = function() {
@@ -57,7 +37,7 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 		$http({
 			
 			method: 'POST',
-			url: 'create',
+			url: 'pet',
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			data: $.param($scope.pet)
 			
@@ -95,7 +75,7 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 		$http({
 			
 			method: 'DELETE',
-			url: 'delete/' + id
+			url: 'pet/' + id
 			
 		}).success(function(data) {
 			
@@ -115,6 +95,25 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 	}
 	
 	/**
+	 * get
+	 */
+	$scope.get = function() {
+		
+		$scope.clear();
+		
+		$http({
+			
+			method: 'GET',
+			url: 'pet'
+			
+		}).success(function(data) {
+			
+			$scope.pets = data.value;
+			
+		});
+	}
+	
+	/**
 	 * find
 	 */
 	$scope.find = function() {
@@ -125,7 +124,7 @@ app.controller("PetCtrl", function($scope, $http, $location) {
 		$http({
 			
 			method: 'GET',
-			url: 'get/' + $scope.pet.id
+			url: 'pet/' + $scope.pet.id
 			
 		}).success(function(data) {
 			

@@ -19,7 +19,7 @@ import petstore.Application;
 import petstore.domain.Pet;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class, locations="classpath:spring-beans.xml")
+@SpringApplicationConfiguration(classes = Application.class)
 @TestExecutionListeners(listeners={DependencyInjectionTestExecutionListener.class, WithSecurityContextTestExecutionListener.class})
 @WithMockUser(username="admin",password="admin",roles={"USER","ADMIN"})
 public class PetServiceTest {

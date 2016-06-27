@@ -14,29 +14,27 @@
                            http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd"
        default-autowire="byName">
 
-    <!-- enable component scanning and autowire (beware that this does not enable mapper scanning!) -->    
-    <context:component-scan base-package="petstore.service" />
+	<!-- enable transaction demarcation with annotations -->
+	<tx:annotation-driven />
 
-    <!-- enable transaction demarcation with annotations -->
-    <tx:annotation-driven />
- 
+	<!-- scan for mappers and let them be autowired -->
+	<mybatis:scan base-package="petstore.mapper" />   
+
+	<!-- define the DataSource -->
 	<jdbc:embedded-database id="dataSource">
 		<jdbc:script location="classpath:database/petstore-hsqldb-schema.sql"/>
 		<jdbc:script location="classpath:database/petstore-hsqldb-dataload.sql"/>
 	</jdbc:embedded-database>
-	
-    <!-- transaction manager, use DataSourceTransactionManager" for JDBC local tx -->
-    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
 
-    <!-- define the SqlSessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="typeAliasesPackage" value="petstore.domain" />
-    </bean>
+	<!-- define the SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="petstore.domain" />
+	</bean>
 
-    <!-- scan for mappers and let them be autowired -->
-    <mybatis:scan base-package="petstore.mapper" />   
+	<!-- transaction manager, use DataSourceTransactionManager" for JDBC local tx -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
 </beans>

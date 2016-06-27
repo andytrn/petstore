@@ -45,16 +45,16 @@ public class PetStoreControllerTest {
 	@Test
 	public void addNoParamShouldReturnError() throws Exception {
 		
-		this.mockMvc.perform(post("/create"))
+		this.mockMvc.perform(post("/pet"))
 				.andDo(print())
 				.andExpect(status().isBadRequest());
 		
 	}
 	
 	@Test
-	public void addWitPparamShouldReturnSuccess() throws Exception {
+	public void addWithPparamShouldReturnSuccess() throws Exception {
 		
-		this.mockMvc.perform(post("/create").param("name", "Max").param("photo", "http://petstore.com/photos/max.jpg").param("status", "available"))
+		this.mockMvc.perform(post("/pet").param("name", "Max").param("photo", "http://petstore.com/photos/max.jpg").param("status", "available"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("success"))
@@ -65,7 +65,7 @@ public class PetStoreControllerTest {
 	@Test
 	public void getNoParamShouldReturnSuccess() throws Exception {
 		
-		this.mockMvc.perform(get("/get"))
+		this.mockMvc.perform(get("/pet"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("success"));
@@ -73,9 +73,9 @@ public class PetStoreControllerTest {
 	}
 	
 	@Test
-	public void getWitPparamShouldReturnError() throws Exception {
+	public void getWithPparamShouldReturnError() throws Exception {
 		
-		this.mockMvc.perform(get("/get/0"))
+		this.mockMvc.perform(get("/pet/0"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("failure"))
@@ -84,9 +84,9 @@ public class PetStoreControllerTest {
 	}
 	
 	@Test
-	public void getWitPparamShouldReturnSuccess() throws Exception {
+	public void getWithPparamShouldReturnSuccess() throws Exception {
 		
-		this.mockMvc.perform(get("/get/1"))
+		this.mockMvc.perform(get("/pet/1"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("success"))
@@ -97,16 +97,16 @@ public class PetStoreControllerTest {
 	@Test
 	public void deleteNoParamShouldReturnError() throws Exception {
 		
-		this.mockMvc.perform(delete("/delete"))
+		this.mockMvc.perform(delete("/pet"))
 				.andDo(print())
 				.andExpect(status().isMethodNotAllowed());
 		
 	}
 	
 	@Test
-	public void deleteWitPparamShouldReturnSuccess() throws Exception {
+	public void deleteWithPparamShouldReturnSuccess() throws Exception {
 		
-		this.mockMvc.perform(delete("/delete/0"))
+		this.mockMvc.perform(delete("/pet/0"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").value("success"))
